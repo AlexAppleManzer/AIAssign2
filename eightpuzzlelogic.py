@@ -1,8 +1,9 @@
 from grid import Grid
 from tree import Node
 from pqueue import PriorityQueue
+from random import choice
 
-def solve(mode, grid):
+def solve(mode):
     if mode == 1:
         print("sup")
         a = Grid([0, 1, 2, 3, 4, 5, 6, 7, 8])
@@ -24,7 +25,8 @@ def solve(mode, grid):
         a.print_tree()
 
     if mode == 3:
-        a = Node(Grid(grid), 0)
+        soln = Grid([1, 2, 3, 8, 0, 4, 7, 6, 5])
+        a = Node(generate_problem(soln), 0)
         a.print_tree()
         for move in a.data.get_moves():
             print(move)
@@ -33,7 +35,8 @@ def solve(mode, grid):
 
     if mode == 4:
         pq = PriorityQueue()
-        root = Node(Grid(grid), 0)
+        soln = Grid([1, 2, 3, 8, 0, 4, 7, 6, 5])
+        root = Node(generate_problem(soln), 0)
 
         def expand_node(node):
             if len(node.children) == 0:
@@ -48,11 +51,11 @@ def solve(mode, grid):
 
         pq.push(root, 0)
 
-        for i in range(999):
+        for i in range(99999):
             nxt = pq.pop()
             expand_node(nxt)
             for child in nxt.children:
-                pq.push(child, child.data.h_score())
+                pq.push(child, child.data.h_score() + child.level)
                 if child.data.is_solution():
                     print("done")
                     root.print_tree()
@@ -62,6 +65,9 @@ def solve(mode, grid):
                 child.print_tree()
 
 
+def generate_problem(g):
 
-
-
+    for i in range(50):
+        m = g.get_moves()
+        g.data = g.move(choice(m))
+    return g

@@ -10,6 +10,9 @@ class Node:
         self.children = []
         if parent != 0:
             parent.children.append(self)
+            self.level = parent.level + 1
+        else:
+            self.level = 0
 
     def print_tree(self):
         print(self.data)

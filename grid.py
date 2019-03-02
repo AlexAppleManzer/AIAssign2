@@ -19,9 +19,15 @@ class Grid:
 
     def __str__(self):
         result = "["
+        i = 0
         for item in self.data:
+
             result = result + "%d, " % item
-        return result[:-2] + "]"
+            if i == 2 or i == 5:
+                result += "\n "
+            i += 1
+
+        return result[:-2] + "] Score:" + str(self.h_score())
 
     def get_blank(self):
         for index, item in enumerate(self.data):
@@ -109,15 +115,23 @@ class Grid:
         # determines heuristic score based on manhattan distance
 
         def get_row(j):
-            return j / 3
+            return int(j / 3)
 
         def get_col(j):
             return j % 3
 
+        def soln_index(num):
+            j = 0
+            for j in range(9):
+                if num == self.soln[j]:
+                    return j
+
         score = 0
         for i in range(9):
-            score += int(abs(get_row(self.data[i]) - get_row(self.soln.index(self.data[i]))))
-            score += int(abs(get_col(self.data[i]) - get_col(self.soln.index(self.data[i]))))
+            row = get_row(i)
+            col = get_col(i)
+            score += abs(row - get_row(soln_index(self.data[i])))
+            score += abs(col - get_col(soln_index(self.data[i])))
 
         return score
 
