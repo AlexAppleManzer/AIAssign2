@@ -1,3 +1,5 @@
+# a simple priority queue with a min heap implementation.
+
 from math import trunc
 
 
