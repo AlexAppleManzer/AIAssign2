@@ -30,6 +30,7 @@ class Grid:
         return result[:-2] + "] Score:" + str(self.h_score())
 
     def get_blank(self):
+        # returns index location of blank tile
         for index, item in enumerate(self.data):
             if item == 0:
                 return index
@@ -55,6 +56,7 @@ class Grid:
         return moves
 
     def move(self, dir):
+        # moves in direction given from Direction enum
         if dir == Direction.Up:
             return self.move_up()
         if dir == Direction.Down:

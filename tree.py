@@ -15,11 +15,13 @@ class Node:
             self.level = 0
 
     def print_tree(self):
+        # prints tree in depth first order
         print(self.data)
         for child in self.children:
             child.print_tree()
 
     def find_item(self, d):
+        # finds item in tree
         if self.data == d:
             return True
 
