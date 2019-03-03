@@ -7,6 +7,9 @@ class PriorityQueue:
     def __init__(self):
         self.data = MinHeap()
 
+    def __len__(self):
+        return len(self.data.data)
+
     def push(self, obj, prio):
         self.data.insert(obj, prio)
 

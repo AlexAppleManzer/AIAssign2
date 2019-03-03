@@ -5,12 +5,15 @@ class Tree:
 
 class Node:
 
-    def __init__(self, data, parent):
+    def __init__(self, data, parent, move):
+        self.moves = []
         self.data = data
         self.children = []
         if parent != 0:
             parent.children.append(self)
             self.level = parent.level + 1
+            self.moves = parent.moves[:]
+            self.moves.append(move)
         else:
             self.level = 0
 

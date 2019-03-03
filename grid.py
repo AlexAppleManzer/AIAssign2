@@ -27,7 +27,7 @@ class Grid:
                 result += "\n "
             i += 1
 
-        return result[:-2] + "] Score:" + str(self.h_score())
+        return result[:-2] + "]\nScore:" + str(self.h_score())
 
     def get_blank(self):
         # returns index location of blank tile
