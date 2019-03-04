@@ -2,7 +2,62 @@
 from eightpuzzlegui import EightPuzzleGUI
 from eightpuzzlelogic import solve
 from pqueue import PriorityQueue
+from cube import Cube
+from random import randint
+from copy import copy
+
 
 if __name__ == "__main__":
+    c = Cube()
+    d = copy(c)
+    d.rotate_f()
+    print(c)
+    # solve(4)
 
-    solve(4)
+
+def solve_cube():
+    print("hi")
+
+
+def test_rotate():
+
+    c = Cube()
+    print(c)
+    m = []
+    for i in range(9):
+        rand = randint(0, 5)
+        if rand == 0:
+            m.append(0)
+            c.rotate_r()
+        if rand == 1:
+            m.append(1)
+            c.rotate_l()
+        if rand == 2:
+            m.append(2)
+            c.rotate_u()
+        if rand == 3:
+            m.append(3)
+            c.rotate_d()
+        if rand == 4:
+            m.append(4)
+            c.rotate_f()
+        if rand == 5:
+            m.append(5)
+            c.rotate_b()
+
+    for i in range(9):
+        nxt = m.pop()
+        if nxt == 1:
+            c.rotate_r()
+        if nxt == 0:
+            c.rotate_l()
+        if nxt == 3:
+            c.rotate_u()
+        if nxt == 2:
+            c.rotate_d()
+        if nxt == 5:
+            c.rotate_f()
+        if nxt == 4:
+            c.rotate_b()
+
+    print(c)
