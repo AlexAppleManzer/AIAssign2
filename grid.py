@@ -123,7 +123,6 @@ class Grid:
             return j % 3
 
         def soln_index(num):
-            j = 0
             for j in range(9):
                 if num == self.soln[j]:
                     return j
@@ -134,6 +133,22 @@ class Grid:
             col = get_col(i)
             score += abs(row - get_row(soln_index(self.data[i])))
             score += abs(col - get_col(soln_index(self.data[i])))
+
+        if self.data[4] != self.soln[4]:
+            score += 1
+
+        path = [[self.soln[0], self.soln[1]], [self.soln[1], self.soln[2]],
+                [self.soln[2], self.soln[5]], [self.soln[5], self.soln[8]],
+                [self.soln[8], self.soln[7]], [self.soln[7], self.soln[6]],
+                [self.soln[6], self.soln[3]], [self.soln[3], self.soln[0]]]
+        p = (0, 1, 2, 5, 8, 7, 6, 3)
+        for i in range(8):
+            check = [self.data[p[i]], self.data[p[(i + 1) % 8]]]
+            for j in range(8):
+                if check == path[j]:
+                    break
+                if j == 7:
+                    score += 2
 
         return score
 

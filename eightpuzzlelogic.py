@@ -5,6 +5,7 @@ from random import choice
 import tkinter as tk
 from eightpuzzlegui import EightPuzzleGUI
 
+
 def solve(mode):
 
     if mode == 1:
@@ -66,28 +67,29 @@ def solve(mode):
             gui.mainFrame.update()
             nxt = pq.pop() # gets next thing in PQ
             expand_node(nxt)
+
+            if len(pq) > 0:
+                gui.draw_grid(pq.data.data[0][0].data, gui.rightFrame1, 12)
+            if len(pq) > 1:
+                gui.draw_grid(pq.data.data[1][0].data, gui.rightFrame2, 12)
+            if len(pq) > 2:
+                gui.draw_grid(pq.data.data[2][0].data, gui.rightFrame3, 12)
+            if len(pq) > 3:
+                gui.draw_grid(pq.data.data[3][0].data, gui.rightFrame4, 12)
+            if len(pq) > 4:
+                gui.draw_grid(pq.data.data[4][0].data, gui.rightFrame5, 12)
+
             for child in nxt.children:
                 # adds children to PQ with h(n) + g(n)
                 gui.draw_grid(child.data, gui.mainFrame, 50)
-                if len(pq) > 0:
-                    gui.draw_grid(pq.data.data[0][0].data, gui.rightFrame1, 12)
-                if len(pq) > 1:
-                    gui.draw_grid(pq.data.data[1][0].data, gui.rightFrame2, 12)
-                if len(pq) > 2:
-                    gui.draw_grid(pq.data.data[2][0].data, gui.rightFrame3, 12)
-                if len(pq) > 3:
-                    gui.draw_grid(pq.data.data[3][0].data, gui.rightFrame4, 12)
-                if len(pq) > 4:
-                    gui.draw_grid(pq.data.data[4][0].data, gui.rightFrame5, 12)
-
-                pq.push(child, child.data.h_score() + child.level)
+                pq.push(child, child.data.h_score() + 1 * child.level)
                 if child.data.is_solution():
                     button.destroy()
                     button1.destroy()
-                    print(child.moves)
+                    # print(child.moves)
                     gui.draw_moves(child.moves)
                     return True
-                pq.print()
+                # pq.print()
             return False
 
         def loop_to_end(button, button1):
@@ -104,9 +106,10 @@ def solve(mode):
 
         gui.root.mainloop()
 
+
 def generate_problem(g):
     # randomly scrambles
-    for i in range(30):
+    for i in range(50):
         m = g.get_moves()
         g.data = g.move(choice(m))
     return g
