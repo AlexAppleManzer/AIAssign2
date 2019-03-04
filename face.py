@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Face(Enum):
+class Facing(Enum):
     R = 0  # right face
     L = 1  # Left face
     U = 2  # up face

@@ -4,19 +4,31 @@ from eightpuzzlelogic import solve
 from pqueue import PriorityQueue
 from cube import Cube
 from random import randint
-from copy import copy
-
+from copy import deepcopy
+from tree import Node
 
 if __name__ == "__main__":
     c = Cube()
-    d = copy(c)
+    d = deepcopy(c)
     d.rotate_f()
     print(c)
-    # solve(4)
+    solve(4)
 
 
 def solve_cube():
-    print("hi")
+    root = Node(Cube(), 0, -1)
+    root.data.scramble(10)
+
+    def expand_node(node):
+        # expands node to generate all possible moves
+
+        if len(node.children) == 0:
+            for i in range(6):
+                m = deepcopy(node.data)
+                m.rotate_face(i)
+                if not root.find_item(m):
+                    # makes sure there are no duplicates
+                    Node(Grid(m), node, i)
 
 
 def test_rotate():

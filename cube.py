@@ -1,4 +1,5 @@
-
+from face import Facing
+from random import randint
 # Face:
 # |00 01|
 # |10 11|
@@ -27,6 +28,20 @@ class Cube:
         self.Front = Face(4)
         self.Back = Face(5)
         self.faces = [self.Right, self.Left, self.Up, self.Down, self.Front, self.Back]
+
+    def __eq__(self, other):
+        for i in range(len(self.faces)):
+            if self.faces[i][0][0] != other.faces[i][0][0]:
+                return False
+            if self.faces[i][0][1] != other.faces[i][0][0]:
+                return False
+            if self.faces[i][1][0] != other.faces[i][0][0]:
+                return False
+            if self.faces[i][1][1] != other.faces[i][0][0]:
+                return False
+        return True
+
+
 
     def __str__(self):
         result = str(self.Back) + str(self.Up)
@@ -141,6 +156,20 @@ class Cube:
         self.Right[1][0] = temp[0]
         self.Right[0][0] = temp[1]
 
+    def rotate_face(self, facing):
+        if facing == Facing.R:
+            self.rotate_r()
+        if facing == Facing.L:
+            self.rotate_l()
+        if facing == Facing.U:
+            self.rotate_u()
+        if facing == Facing.D:
+            self.rotate_d()
+        if facing == Facing.F:
+            self.rotate_f()
+        if facing == Facing.B:
+            self.rotate_b()
+
     def h_score(self):
         return self.face_score()
 
@@ -156,3 +185,9 @@ class Cube:
             if self.faces[i][1][1] != i:
                 score += 1
         return score
+
+    def scramble(self, num):
+        # scrambles cube num rotations
+        for i in range(num):
+            self.rotate_face(randint(0, 5))
+

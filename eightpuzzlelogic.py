@@ -5,6 +5,9 @@ from random import choice
 import tkinter as tk
 from eightpuzzlegui import EightPuzzleGUI
 
+class B():
+    def __init__(self, node):
+        self.data = node
 
 def solve(mode):
 
@@ -50,10 +53,10 @@ def solve(mode):
             # expands node to generate all possible moves
             if len(node.children) == 0:
                 for move in node.data.get_moves():
-                    m = node.data.move(move)
-                    if not move == root.find_item(move):
+                    m = Grid(node.data.move(move))
+                    if not root.find_item(m):
                         # makes sure there are no duplicates
-                        Node(Grid(m), node, move)
+                        Node(m, node, move)
 
         if root.data.is_solution():
             return
@@ -61,7 +64,8 @@ def solve(mode):
         pq.push(root, 0)
 
         gui = EightPuzzleGUI()
-        gui.draw_grid(root.data, gui.mainFrame, 50)
+        best = B(root)
+        gui.draw_grid(best.data.data, gui.mainFrame, 50)
 
         def increment(button, button1):
             gui.mainFrame.update()
@@ -81,8 +85,11 @@ def solve(mode):
 
             for child in nxt.children:
                 # adds children to PQ with h(n) + g(n)
-                gui.draw_grid(child.data, gui.mainFrame, 50)
-                pq.push(child, child.data.h_score() + 1 * child.level)
+                # gui.draw_grid(child.data, gui.mainFrame, 50)
+                if child.data.h_score() < best.data.data.h_score():
+                    best.data = child
+                    gui.draw_grid(best.data.data, gui.mainFrame, 50)
+                pq.push(child, child.data.h_score() + 0.5 * child.level)
                 if child.data.is_solution():
                     button.destroy()
                     button1.destroy()

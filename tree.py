@@ -30,3 +30,5 @@ class Node:
 
         for child in self.children:
             child.find_item(d)
+
+        return False

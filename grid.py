@@ -14,6 +14,12 @@ class Grid:
         self.data = data
         self.soln = [1, 2, 3, 8, 0, 4, 7, 6, 5]
 
+    def __eq__(self, other):
+        for i in range(9):
+            if self.data[i] != other.data[i]:
+                return False
+        return True
+
     def __getitem__(self, item):
         return self.data[item]
 
