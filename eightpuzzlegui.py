@@ -52,6 +52,13 @@ class EightPuzzleGUI:
         txt = Label(frame, text=str(grid), font=("Courier", size))
         txt.grid(row=0, column=0, sticky=N+E+S+W)
 
+    def draw_cube(self, cube, frame, size):
+        for widget in frame.winfo_children():
+            widget.destroy()
+        txt = Label(frame, text=str(cube), font=("Courier", size))
+        txt.grid(row=0, column=0, sticky=N+E+S+W)
+
+
     def draw_moves(self, moves):
         self.rightFrame1.destroy()
         self.rightFrame2.destroy()

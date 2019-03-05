@@ -5,9 +5,11 @@ from random import choice
 import tkinter as tk
 from eightpuzzlegui import EightPuzzleGUI
 
+
 class B():
     def __init__(self, node):
         self.data = node
+
 
 def solve(mode):
 

@@ -1,5 +1,5 @@
 from face import Facing
-from random import randint
+from random import choice
 # Face:
 # |00 01|
 # |10 11|
@@ -14,7 +14,8 @@ class Face:
         return self.data[item]
 
     def __str__(self):
-        return "\n\t|%d %d|\n\t|%d %d|" % (self.data[0][0], self.data[0][1], self.data[1][0], self.data[1][1])
+        return " |%d %d|\n |%d %d|" % (self.data[0][0], self.data[0][1], self.data[1][0], self.data[1][1])
+
 
 class Cube:
 
@@ -41,20 +42,20 @@ class Cube:
                 return False
         return True
 
-
-
     def __str__(self):
-        result = str(self.Back) + str(self.Up)
+        # string output command
+        result = "score = %d\n" % self.h_score() + str(self.Back) + "\n" + str(self.Up)
         result += "\n|{} {}|{} {}|{} {}|".format(self.Left[0][0], self.Left[0][1],
                                                self.Front[0][0], self.Front[0][1],
                                                self.Right[0][0], self.Right[0][1])
         result += "\n|{} {}|{} {}|{} {}|".format(self.Left[1][0], self.Left[1][1],
                                                self.Front[1][0], self.Front[1][1],
                                                self.Right[1][0], self.Right[1][1])
-        result += str(self.Down)
+        result += "\n" + str(self.Down)
         return result
 
     def rotate_r(self):
+        # rotate right face
         temp = self.Right[0][0]
         self.Right[0][0] = self.Right[1][0]
         self.Right[1][0] = self.Right[1][1]
@@ -72,6 +73,7 @@ class Cube:
         self.Up[1][1] = temp[1]
 
     def rotate_l(self):
+        # rotate left face
         temp = self.Right[0][1]
         self.Right[0][1] = self.Right[1][1]
         self.Right[1][1] = self.Right[1][0]
@@ -89,6 +91,7 @@ class Cube:
         self.Up[1][1] = temp[1]
 
     def rotate_u(self):
+        # rotate up face
         temp = self.Up[0][0]
         self.Up[0][0] = self.Up[1][0]
         self.Up[1][0] = self.Up[1][1]
@@ -106,6 +109,7 @@ class Cube:
         self.Front[0][0] = temp[1]
 
     def rotate_d(self):
+        # rotate down face
         temp = self.Up[0][1]
         self.Up[0][1] = self.Up[1][1]
         self.Up[1][1] = self.Up[1][0]
@@ -123,6 +127,7 @@ class Cube:
         self.Right[0][1] = temp[0]
 
     def rotate_f(self):
+        # rotate front face
         temp = self.Front[0][0]
         self.Front[0][0] = self.Front[1][0]
         self.Front[1][0] = self.Front[1][1]
@@ -140,6 +145,7 @@ class Cube:
         self.Down[0][1] = temp[1]
 
     def rotate_b(self):
+        # rotate back face
         temp = self.Front[0][1]
         self.Front[0][1] = self.Front[1][1]
         self.Front[1][1] = self.Front[1][0]
@@ -157,6 +163,7 @@ class Cube:
         self.Right[0][0] = temp[1]
 
     def rotate_face(self, facing):
+        # rotate any face using Facing enum
         if facing == Facing.R:
             self.rotate_r()
         if facing == Facing.L:
@@ -171,6 +178,7 @@ class Cube:
             self.rotate_b()
 
     def h_score(self):
+        # calculate heuristic score
         return self.face_score()
 
     def face_score(self):
@@ -189,5 +197,5 @@ class Cube:
     def scramble(self, num):
         # scrambles cube num rotations
         for i in range(num):
-            self.rotate_face(randint(0, 5))
+            self.rotate_face(choice(list(Facing)))
 
