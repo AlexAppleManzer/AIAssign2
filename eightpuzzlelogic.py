@@ -7,6 +7,7 @@ from eightpuzzlegui import EightPuzzleGUI
 
 
 class B():
+    # class to store variable scoping, that's it
     def __init__(self, node):
         self.data = node
 

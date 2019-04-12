@@ -1,3 +1,10 @@
+# Course: CS4242
+# Student name: Alex Manzer
+# Student ID: 827565
+# Assignment #: #2
+# Due Date: 3/5/2019
+# Signature: ______________
+# Score: _____________
 
 from eightpuzzlegui import EightPuzzleGUI
 from eightpuzzlelogic import solve
@@ -9,6 +16,7 @@ from tree import Node
 from face import Facing
 import tkinter as tk
 from eightpuzzlelogic import B
+
 
 def solve_cube():
 
@@ -83,7 +91,7 @@ def solve_cube():
 
 
 def test_rotate():
-
+    # tests rotate functions in Cube class
     c = Cube()
     print(c)
     m = []
@@ -128,4 +136,4 @@ def test_rotate():
 
 if __name__ == "__main__":
     solve_cube()
-    # solve(4)
+    solve(4)
